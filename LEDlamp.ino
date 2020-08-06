@@ -22,12 +22,6 @@ void setup() {
   pinMode(greenPin, OUTPUT);
 }
 
-void color (int red,int green,int blue) {
-  analogWrite(redPin, red);
-  analogWrite(bluePin, blue);
-  analogWrite(greenPin, green);
-  }
-
 void loop() {
 
   //Button updater
@@ -37,62 +31,76 @@ void loop() {
     delay(200);
     }
 
+  switch (program) {
+
   //Mode  0: fading through each color
-  if (program == 0) {
-
-    fade(50);
-
-  }
+  case 0:
+  fade(50);
+  break;
 
   // Mode 1: fixed red
-  if (program == 1) {
-    color(255, 0, 0);
-    } 
+  case 1: 
+  color(255, 0, 0);
+  break;
 
   // Mode 2: fixed yellow
-  if (program == 2) {
-    color(255, 255, 0);
-    }
+  case 2:
+  color(255, 255, 0);
+  break;
 
   // Mode 3: fixed green
-  if (program == 3) {
-    color(0, 255, 0);
-    }
+  case 3:
+  color(0, 255, 0);
+  break;
 
   // Mode 4: fixed teal
-  if (program == 4) {
-    color(0, 255, 255);
-    }
+  case 4:
+  color(0, 255, 255);
+  break;
 
   // Mode 5: fixed blue
-  if (program == 5) {
-    color(0, 0, 255);
-    }
+  case 5:
+  color(0, 0, 255);
+  break;
 
   // Mode 6: fixed violet
-  if (program == 6) {
-    color(255, 0, 255);
-    }
+  case 6:
+  color(255, 0, 255);
+  break;
 
   // Mode 7: fixed white
-  if (program == 7) {
-    color(255, 255, 255);
-    }
+  case 7:
+  color(255, 255, 255);
+  break;
 
   // Mode 8: random sound color change
-  if (program == 8) {
+  case 8:
 
-    if (digitalRead(soundPin) == 1) {
-    randg = rand() % 256;
-    randb = rand() % 256;
-    randr = rand() % 256;
-    color(randr, randb, randg);
-    delay(100); 
-      }
+  if (digitalRead(soundPin) == 1) {
     
+  randg = rand() % 256;
+  randb = rand() % 256;
+  randr = rand() % 256;
+  
+  color(randr, randb, randg);
+  
+  delay(100); 
+  
     }
 
+    break;
+    
+  }
+
 }
+
+void color (int red,int green,int blue) {
+  
+  analogWrite(redPin, red);
+  analogWrite(bluePin, blue);
+  analogWrite(greenPin, green);
+  
+  }
 
 void fade(int wait) {
 
