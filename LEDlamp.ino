@@ -1,3 +1,5 @@
+#include <ColorConverterLib.h>
+
 const int bluePin = 3;
 const int redPin = 5;
 const int greenPin = 6;
@@ -11,7 +13,8 @@ int randg = 255;
 int randb = 255;
 int randr = 255;
 int program = 1;
-int r, g, b;
+uint8_t r, g, b;
+double hue = 0, sat = 1, val = 1;
 
 void setup() {
   pinMode(bluePin, OUTPUT);
@@ -37,35 +40,7 @@ void loop() {
   //Mode  0: fading through each color
   if (program == 0) {
 
-    for (r = 0; r < 256; r++) {
-      analogWrite(redPin, r);
-      delay(fadespeed);
-      }
-
-    for (b = 255; b > 0; b--) {
-      analogWrite(bluePin, b);
-      delay(fadespeed);
-      }
-
-    for (g = 0; g < 256; g++) {
-      analogWrite(greenPin, g);
-      delay(fadespeed);
-      }
-
-    for (r = 255; r > 0; r--) {
-      analogWrite(redPin, r);
-      delay(fadespeed);
-      }
-
-    for (b = 0; b < 256; b++) {
-      analogWrite(bluePin, b);
-      delay(fadespeed);
-      }
-
-    for (g = 255; g > 0; g--) {
-      analogWrite(greenPin, g);
-      delay(fadespeed);
-      }
+    fade(50);
 
   }
 
@@ -117,14 +92,19 @@ void loop() {
     
     }
 
-  if (program == 9) {
-    int  c = 11016574;
+}
+
+void fade(int wait) {
+
+  ColorConverter::HsvToRgb(hue, sat, val, r, g, b);
+
+  analogWrite(redPin, r);
+  analogWrite(greenPin, g);
+  analogWrite(bluePin, b);
+
+  hue += 0.001;
   
-  r = c % 256;
-  g = (c /256) % 256;
-  b = c / 256;
 
-  color(0, 0, b);
-    }
-
+  delay(wait);
+  
 }

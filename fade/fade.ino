@@ -23,7 +23,7 @@ void setup() {
 
 void loop() {
 
-  analogWrite(redPin, 255);
+  fade();
 
 }
 
@@ -36,6 +36,7 @@ void fade() {
   analogWrite(bluePin, blue);
 
   hue += 0.01;
+  
 
   delay(50);
   
