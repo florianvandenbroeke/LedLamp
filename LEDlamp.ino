@@ -36,7 +36,7 @@ void loop() {
     
     program ++;
     program %= 9;
-    delay(220);
+    delay(220); // button debounce
     
   }
 
@@ -85,7 +85,8 @@ void loop() {
     // Mode 8: random sound color change
     case 8:
     if (digitalRead(soundPin) == 1) {
-    
+      
+    // generate random color
     randg = rand() % 256;
     randb = rand() % 256;
     randr = rand() % 256;
@@ -100,10 +101,11 @@ void loop() {
 
   }
     
-  Serial.println(program);
+  Serial.println(program); // print program number for debugging
 
 }
 
+// displays color by rgb value
 void color (int red,int green,int blue) {
   
   analogWrite(redPin, red);
@@ -112,6 +114,8 @@ void color (int red,int green,int blue) {
   
 }
 
+// fade animation
+// each call advances the animation one frame
 void fade(int wait) {
 
   ColorConverter::HsvToRgb(hue, sat, val, r, g, b);
